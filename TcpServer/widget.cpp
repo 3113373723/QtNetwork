@@ -69,9 +69,11 @@ void Widget::initServer()
                 if(socket->bytesAvailable()<=0){
                     return;
                 }
+                QDateTime dateTime(QDateTime::currentDateTime());
                 //注意收发两端文本要使用对应的编解码
                 const QString recv_text = QString::fromUtf8(socket->readAll());
                 ui->textRecv->appendPlainText(QString("[%1:%2]")
+                                     .arg(dateTime.toString("yy-MM-dd hh:mm:ss:zzz"))
                                      .arg(socket->peerAddress().toString())
                                      .arg(socket->peerPort()));
                 ui->textRecv->appendPlainText(recv_text);

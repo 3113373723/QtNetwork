@@ -77,9 +77,11 @@ void Widget::initClient()
         if(client->bytesAvailable()<=0){
             return;
         }
+        QDateTime dateTime(QDateTime::currentDateTime());
         //注意收发两端文本要使用对应的编解码
         const QString recv_text = QString::fromUtf8(client->readAll());
-        ui->textRecv->appendPlainText(QString("[%1:%2]").arg(client->peerAddress().toString())
+        ui->textRecv->appendPlainText(QString("[%1][%2:%3]").arg(dateTime.toString("yy-MM-dd hh:mm:ss:zzz"))
+                                      .arg(client->peerAddress().toString())
                                       .arg(client->peerPort()));
         ui->textRecv->appendPlainText(recv_text);
     });
